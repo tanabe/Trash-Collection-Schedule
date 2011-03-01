@@ -1,0 +1,139 @@
+/* common */
+body {
+  margin: 0;
+  padding: 0;
+  width: 320px;
+  background-color: #fff;
+  color: #000;
+  font-family: "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+  font-size: 1.3em;
+  line-height: 1.2em;
+}
+
+a:link, a:visited, a:hover, a:active {
+  color: blue;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  font-size: 1em;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+ol, ul, li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+button, input, select {
+  font-size: 1em;
+}
+
+div.section {
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 1.5em;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+}
+
+h2 {
+  display: none;
+}
+
+h3 {
+  font-weight: bold;
+  margin: 10px 0;
+  padding-left: 5px;
+  border-left: 5px solid #68e;
+}
+
+ul#menu {
+  border-top: 2px solid #bcf;
+  background-color: #e3e9ff;
+  margin-bottom: 10px;
+}
+
+ul#menu li {
+  padding: 5px;
+  display: inline-block;
+}
+
+ul#menu li a {
+  color: black;
+  text-decoration: none;
+}
+
+ul#menu li.current {
+  background-color: #68e;
+}
+
+ul#menu li.current a {
+  color: white;
+}
+
+ul#menu li.disabled {
+  background-color: #ccc;
+}
+
+ul#menu li.disabled a {
+  color: white;
+}
+
+/* views */
+div.view {
+  display: none;
+}
+
+div.view div.content {
+  padding: 10px;
+}
+
+/* help */
+#helpView ol, 
+#helpView ul {
+  margin-bottom: 10px;
+  margin-left: 1.5em;
+}
+
+#helpView ol li {
+  list-style: decimal none outside;
+}
+
+#helpView ul li {
+  list-style: disc none outside;
+}
+
+#helpView li {
+  font-size: 0.8em;
+  margin-bottom: 5px;
+}
+
+/* setting */
+#sheetKeyInput {
+  width: 80%;
+}
+
+p.authInfo {
+  word-break: break-all;
+  padding: 5px;
+  border: 2px solid #bcf;
+}
+
+p.authInfo.unset {
+  border: 2px solid red;
+}
+
+/* footer */
+div#footer {
+  padding: 5px;
+  text-align: center;
+  border-top: 2px solid #bcf;
+  background-color: #e3e9ff;
+}
+
