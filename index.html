@@ -57,6 +57,39 @@
       <div class="content">
         <div class="section">
           <h3>設定済みのスケジュール</h3>
+          <ul id="schedule">
+            <li>
+              <table>
+                <tr>
+                  <td>
+                    <p>
+                    <select name="term"> 
+                      <option value="0">毎週</option> 
+                      <option value="1">第1</option> 
+                      <option value="2">第2</option> 
+                      <option value="3">第3</option> 
+                      <option value="4">第4</option> 
+                      <option value="5">第5</option> 
+                    </select> 
+                    <select name="day"> 
+                      <option value="0">日曜日</option> 
+                      <option value="1">月曜日</option> 
+                      <option value="2">火曜日</option> 
+                      <option value="3">水曜日</option> 
+                      <option value="4">木曜日</option> 
+                      <option value="5">金曜日</option> 
+                      <option value="6">土曜日</option> 
+                    </select>           
+                    </p>
+                    <p><input type="text" value=""></p>
+                  </td>
+                  <td><a href="javascript:void(null);" onclick="deleteRule(this);">x</a></td>
+                </tr>
+              </table>
+
+
+            </li>
+          </ul>
         </div>
 
         <div class="section">
@@ -83,6 +116,30 @@
       </div>
     </div>
     <!-- /help view -->
+
+    <!-- rule editor template -->
+    <div id="ruleTemplate" class="rule"> 
+      <select name="term"> 
+        <option value="0">毎週</option> 
+        <option value="1">第1</option> 
+        <option value="2">第2</option> 
+        <option value="3">第3</option> 
+        <option value="4">第4</option> 
+        <option value="5">第5</option> 
+      </select> 
+      <select name="day"> 
+        <option value="0">日曜日</option> 
+        <option value="1">月曜日</option> 
+        <option value="2">火曜日</option> 
+        <option value="3">水曜日</option> 
+        <option value="4">木曜日</option> 
+        <option value="5">金曜日</option> 
+        <option value="6">土曜日</option> 
+      </select> 
+      <input type="text" value=""> 
+      <a href="javascript:void(null);" onclick="deleteRule(this);">削除</a> 
+    </div> 
+    <!-- rule editor template -->
 
     <!-- footer -->
     <div id="footer">created by <a href="http://twitter.com/tanabe/">@tanabe</a></div>

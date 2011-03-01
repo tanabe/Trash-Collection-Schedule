@@ -18,7 +18,7 @@ var Application = (function() {
 
     this.restoreSchedule();
 
-    this.changeView("main");
+    this.changeView("setting");
 
     //initialize input view
     this.initMainView();

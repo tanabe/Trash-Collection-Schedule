@@ -115,19 +115,6 @@ div.view div.content {
 }
 
 /* setting */
-#sheetKeyInput {
-  width: 80%;
-}
-
-p.authInfo {
-  word-break: break-all;
-  padding: 5px;
-  border: 2px solid #bcf;
-}
-
-p.authInfo.unset {
-  border: 2px solid red;
-}
 
 /* footer */
 div#footer {
