@@ -38,13 +38,16 @@ var Application = (function() {
 
     this.restoreSchedule();
 
-    this.changeView("setting");
+    this.changeView("main");
 
     //initialize input view
     this.initMainView();
 
     //initialize setting view
     this.initSettingView();
+
+    //initialize help view
+    this.initHelpView();
 
     //initialize menu
     this.initMenu();
@@ -77,7 +80,7 @@ var Application = (function() {
 
     //add reset button event handler
     $("#resetButton").click(function() {
-      if (confirm("スケジュールを初期化しますか？")) {
+      if (confirm("スケジュールを全て削除しますか？")) {
         self.resetSchedule();
       }
     });
@@ -252,16 +255,29 @@ var Application = (function() {
    */
   app.resetSchedule = function() {
     localStorage.removeItem(this.STORAGE_KEY);
-    this.config = this.PRESET_SCHEDULE.concat();
+    //this.config = this.PRESET_SCHEDULE.concat();
+    this.config = [];
 
     //save config
     this.saveSchedule();
   };
 
   /**
-   *  validate input value
+   *  delete local storage
    */
-  app.validateInputValue = function() {
+  app.format = function() {
+    localStorage.removeItem(this.STORAGE_KEY);
+    location.reload();
+  };
+
+  /**
+   *  initialize help view
+   */
+  app.initHelpView = function() {
+    var self = this;
+    $("#formatButton").click(function() {
+      self.format();
+    });
   };
 
   /**
@@ -277,6 +293,11 @@ var Application = (function() {
         $("#" + this.VIEWS[i] + "View").hide();
         $("ul#menu li." + this.VIEWS[i]).removeClass("current");
       }
+    }
+
+    //if change to main view, update information
+    if (view === "main") {
+      this.initMainView();
     }
   };
 

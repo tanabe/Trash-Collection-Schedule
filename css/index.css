@@ -102,7 +102,23 @@ div.view div.content {
   padding: 10px;
 }
 
-/* help */
+/* main view */
+
+#mainView ul li {
+  font-size: 0.8em;
+}
+
+li#today {
+  padding-left: 20px;
+  background: transparent url("../images/calendar-day.png") no-repeat left center;
+}
+
+li#day {
+  padding-left: 20px;
+  background: transparent url("../images/target.png") no-repeat left center;
+}
+
+/* help view */
 #helpView ol, 
 #helpView ul {
   margin-bottom: 10px;
@@ -117,16 +133,17 @@ div.view div.content {
   list-style: disc none outside;
 }
 
+#helpView p,
 #helpView li {
   font-size: 0.8em;
   margin-bottom: 5px;
 }
 
-/* setting */
+/* setting view */
 
 ul#schedule li {
   border-radius: 15px;
-  background-color: antiquewhite;
+/*  background-color: antiquewhite;*/
   background-color: whitesmoke;
   position: relative;
   font-size: 0.7em;
