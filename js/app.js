@@ -129,8 +129,12 @@ var Application = (function() {
     $("ul#schedule li div.deleteButton a").each(function(index, element) {
       $(element).click(function() {
         //get parent li id
-        var id = $(this).closest("li").attr("id").match(/^item(\d+)$/)[1];
-        self.removeScheduleItem(id);
+        var parentListItem = $(this).closest("li");
+        var id = parentListItem.attr("id").match(/^item(\d+)$/)[1];
+        //animation
+        parentListItem.fadeOut(function() {
+          self.removeScheduleItem(id);
+        });
       });
     });
   }

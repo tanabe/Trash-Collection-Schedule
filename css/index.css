@@ -125,14 +125,17 @@ div.view div.content {
 /* setting */
 
 ul#schedule li {
+  border-radius: 15px;
   background-color: antiquewhite;
+  background-color: whitesmoke;
   position: relative;
   font-size: 0.7em;
-  padding: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 ul#schedule li.odd {
-  background-color: moccasin;
+/*  background-color: moccasin;*/
 }
 
 ul#schedule li div.day {
@@ -149,8 +152,8 @@ ul#schedule li div.deleteButton {
   position: absolute;
   margin: 0;
   padding: 0;
-  right: 3px;
-  top: 3px;
+  right: 5px;
+  top: 5px;
 }
 
 div#scheduleAlert {
@@ -173,29 +176,6 @@ div#scheduleSelectors {
 input#trashTextInput {
   width: 250px;
 }
-
-/*
-ul#schedule li table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-ul#schedule li table tr,
-ul#schedule li table tr td {
-  margin: 0;
-  padding: 0;
-}
-
-ul#schedule li table tr td {
-  padding: 2px;
-  font-size: 0.8em;
-}
-
-ul#schedule li table tr td.deleteButton {
-  padding: 10px;
-  display: none;
-}
-*/
 
 /* footer */
 div#footer {
