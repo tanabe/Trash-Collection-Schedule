@@ -6,7 +6,7 @@ var Application = (function() {
   var NOW = new Date();
   var TOMORROW = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate() + 1);
 
-  app.config = {};
+  app.config = [];
   app.VIEWS = ["main", "setting", "help"];
   app.STORAGE_KEY = "scheduleConfig";
 
@@ -18,7 +18,7 @@ var Application = (function() {
 
     this.restoreSchedule();
 
-    this.changeView("setting");
+    this.changeView("main");
 
     //initialize input view
     this.initMainView();
@@ -51,6 +51,8 @@ var Application = (function() {
    */
   app.initSettingView = function() {
     var self = this;
+
+    //create list
   };
 
   /**
@@ -73,9 +75,25 @@ var Application = (function() {
   /**
    *  get trash collection schedule
    *  @param date the date
+   *  @return trash
    */
   app.getTrashCollectionSchedule = function(date) {
-    return this.config[this.getNumberOfDayOfTheWeek(date) + "" + date.getDay()] || this.config["0" + date.getDay()] || "なし";
+    var leftDigit = this.getNumberOfDayOfTheWeek(date) + "";
+    var rightDigit = date.getDay() + "";
+    for (var i = 0; i < this.config.length; i++) {
+      var rule = this.config[i];
+      var day = rule.day;
+      var trash = rule.trash;
+      //specific pattern
+      if (rule.day === leftDigit + rightDigit) {
+        return trash;
+      //every week pattern
+      } else if (rule.day === "0" + rightDigit) {
+        return trash;
+      }
+    }
+    //not match
+    return "なし";
   };
 
   /**
@@ -85,18 +103,25 @@ var Application = (function() {
     if (localStorage && localStorage[this.STORAGE_KEY]) {
       this.config = JSON.parse(localStorage[this.STORAGE_KEY]);
     } else {
+      //TODO refactoring me
       //default schedule
-      this.config = {
-        "03": "燃やせるごみ",
-        "06": "燃やせるごみ",
-        "25": "燃やせないごみ",
-        "45": "燃やせないごみ",
-        "14": "新聞・雑誌・ダンボール・布類",
-        "34": "新聞・雑誌・ダンボール・布類",
-        "24": "カン・ビン・ペットボトル",
-        "44": "カン・ビン・ペットボトル",
-        "02": "プラスチック"
-      };
+      //day digits rules are
+      //left digit
+      //0   : evenryweek
+      //1..6: day
+      //right digit
+      //0..6: day
+      this.config = [
+        {day: "03", trash: "燃やせるごみ"},
+        {day: "06", trash: "燃やせるごみ"},
+        {day: "25", trash: "燃やせないごみ"},
+        {day: "45", trash: "燃やせないごみ"},
+        {day: "14", trash: "新聞・雑誌・ダンボール・布類"},
+        {day: "34", trash: "新聞・雑誌・ダンボール・布類"},
+        {day: "24", trash: "カン・ビン・ペットボトル"},
+        {day: "44", trash: "カン・ビン・ペットボトル"},
+        {day: "02", trash: "プラスチック"}
+      ];
     }
   };
 

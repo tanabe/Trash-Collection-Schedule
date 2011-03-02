@@ -14,6 +14,10 @@ a:link, a:visited, a:hover, a:active {
   color: blue;
 }
 
+img {
+  border: none;
+}
+
 h1, h2, h3, h4, h5, h6, p {
   font-size: 1em;
   font-weight: normal;
@@ -51,6 +55,10 @@ h3 {
   margin: 10px 0;
   padding-left: 5px;
   border-left: 5px solid #68e;
+}
+
+.template {
+  display: none;
 }
 
 ul#menu {
@@ -115,6 +123,59 @@ div.view div.content {
 }
 
 /* setting */
+
+ul#schedule li {
+  background-color: antiquewhite;
+  position: relative;
+  font-size: 0.7em;
+  padding: 5px;
+}
+
+ul#schedule li.odd {
+  background-color: moccasin;
+}
+
+ul#schedule li div.day {
+  padding-left: 20px;
+  background: transparent url("../images/calendar.png") no-repeat left center;
+}
+
+ul#schedule li div.trash {
+  padding-left: 20px;
+  background: transparent url("../images/truck.png") no-repeat left center;
+}
+
+ul#schedule li div.deleteButton {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  right: 3px;
+  top: 3px;
+}
+
+
+/*
+ul#schedule li table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+ul#schedule li table tr,
+ul#schedule li table tr td {
+  margin: 0;
+  padding: 0;
+}
+
+ul#schedule li table tr td {
+  padding: 2px;
+  font-size: 0.8em;
+}
+
+ul#schedule li table tr td.deleteButton {
+  padding: 10px;
+  display: none;
+}
+*/
 
 /* footer */
 div#footer {
