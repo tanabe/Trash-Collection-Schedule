@@ -160,6 +160,20 @@ div#scheduleAlert {
   border: 2px solid red;
 }
 
+div#scheduleSelectors {
+  padding-left: 20px;
+  background: transparent url(../images/calendar.png) no-repeat left center;
+}
+
+#trashTextInputWrapper {
+  padding-left: 20px;
+  background: transparent url(../images/truck.png) no-repeat left center;
+}
+
+input#trashTextInput {
+  width: 250px;
+}
+
 /*
 ul#schedule li table {
   border-collapse: collapse;

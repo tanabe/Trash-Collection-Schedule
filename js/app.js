@@ -73,21 +73,39 @@ var Application = (function() {
     var self = this;
 
     //create list
-    this.initScheduleList();
+    this.updateScheduleList();
 
     //add reset button event handler
     $("#resetButton").click(function() {
       if (confirm("スケジュールを初期化しますか？")) {
         self.resetSchedule();
-        self.initScheduleList();
       }
+    });
+
+    //add add button event handler
+    $("#addScheduleButton").click(function() {
+      var term = $("#termSelect").children("option:selected").attr("value") + "";
+      var day = $("#daySelect").children("option:selected").attr("value") + "";
+      var trash = $("#trashTextInput").val();
+      if (trash.match(/^\s*$/)) {
+        alert("ゴミの種類を入力してください");
+        return;
+      }
+      self.config.push({
+        condition: term + day,
+        trash    :  trash
+      });
+      self.saveSchedule();
+
+      //clear input
+      $("#trashTextInput").val("");
     });
   };
 
   /**
    *  init schedule list in setting view
    */
-  app.initScheduleList = function() {
+  app.updateScheduleList = function() {
     var self = this;
     if (this.config.length === 0) {
       $("#scheduleAlert").show();
@@ -196,6 +214,9 @@ var Application = (function() {
    */
   app.saveSchedule = function() {
     localStorage[this.STORAGE_KEY] = JSON.stringify(this.config);
+
+    //update list
+    this.updateScheduleList();
   };
 
   /**
@@ -217,8 +238,6 @@ var Application = (function() {
    */
   app.removeScheduleItem = function(id) {
     this.config.splice(id, 1);
-    //update view
-    this.initScheduleList();
 
     //save config
     this.saveSchedule();
@@ -230,6 +249,8 @@ var Application = (function() {
   app.resetSchedule = function() {
     localStorage.removeItem(this.STORAGE_KEY);
     this.config = this.PRESET_SCHEDULE.concat();
+
+    //save config
     this.saveSchedule();
   };
 

@@ -64,8 +64,8 @@
 
         <div class="section">
           <h3>ルールを追加</h3>
-          <div> 
-            <select name="term" id="termSelect"> 
+          <div id="scheduleSelectors"> 
+            <select name="termSelect" id="termSelect"> 
               <option value="0">毎週</option> 
               <option value="1">第1</option> 
               <option value="2">第2</option> 
@@ -73,7 +73,7 @@
               <option value="4">第4</option> 
               <option value="5">第5</option> 
             </select> 
-            <select name="day" id="daySelect"> 
+            <select name="daySelect" id="daySelect"> 
               <option value="0">日曜日</option> 
               <option value="1">月曜日</option> 
               <option value="2">火曜日</option> 
@@ -82,9 +82,9 @@
               <option value="5">金曜日</option> 
               <option value="6">土曜日</option> 
             </select> 
-            <p><input type="text" id="trashTextInput" value=""></p>
           </div> 
-          <p><button type="button" id="addRuleButton" class="button">ルールを追加する</button></p>
+          <div id="trashTextInputWrapper"><input type="text" id="trashTextInput" value=""></div>
+          <div><button type="button" id="addScheduleButton" class="button">ルールを追加する</button></div>
         </div>
 
         <div class="section">
@@ -118,28 +118,6 @@
       <div class="day">###DAY###</div>
       <div class="trash">###TRASH###</div>
     </div>
-
-    <div id="ruleTemplate" class="rule template"> 
-      <select name="term"> 
-        <option value="0">毎週</option> 
-        <option value="1">第1</option> 
-        <option value="2">第2</option> 
-        <option value="3">第3</option> 
-        <option value="4">第4</option> 
-        <option value="5">第5</option> 
-      </select> 
-      <select name="day"> 
-        <option value="0">日曜日</option> 
-        <option value="1">月曜日</option> 
-        <option value="2">火曜日</option> 
-        <option value="3">水曜日</option> 
-        <option value="4">木曜日</option> 
-        <option value="5">金曜日</option> 
-        <option value="6">土曜日</option> 
-      </select> 
-      <input type="text" value=""> 
-      <a href="javascript:void(null);" onclick="deleteRule(this);">削除</a> 
-    </div> 
     <!-- template -->
 
     <!-- footer -->
