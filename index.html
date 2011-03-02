@@ -57,29 +57,34 @@
       <div class="content">
         <div class="section">
           <h3>設定済みのスケジュール</h3>
+          <div id="scheduleAlert">設定がありません</div>
           <ul id="schedule">
-
-            <!--
-            <li class="odd">
-              <div class="deleteButton"><a href="javascript:void(null);"><img src="images/cross.png"></a></div>
-              <div class="day">毎週水曜日</div>
-              <div class="trash">燃やせるごみ</div>
-            </li>
-
-            <li>
-              <div class="deleteButton"><a href="javascript:void(null);"><img src="images/cross.png" width="16" height="16"></a></div>
-              <div class="day">第2金曜日</div>
-              <div class="trash">燃やせないごみ</div>
-            </li>
-
-            <li class="odd">
-              <div class="deleteButton"><a href="javascript:void(null);"><img src="images/cross.png"></a></div>
-              <div class="day">毎週水曜日</div>
-              <div class="trash">新聞・雑誌・ダンボール・布類</div>
-            </li>
-            -->
-
           </ul>
+        </div>
+
+        <div class="section">
+          <h3>ルールを追加</h3>
+          <div> 
+            <select name="term" id="termSelect"> 
+              <option value="0">毎週</option> 
+              <option value="1">第1</option> 
+              <option value="2">第2</option> 
+              <option value="3">第3</option> 
+              <option value="4">第4</option> 
+              <option value="5">第5</option> 
+            </select> 
+            <select name="day" id="daySelect"> 
+              <option value="0">日曜日</option> 
+              <option value="1">月曜日</option> 
+              <option value="2">火曜日</option> 
+              <option value="3">水曜日</option> 
+              <option value="4">木曜日</option> 
+              <option value="5">金曜日</option> 
+              <option value="6">土曜日</option> 
+            </select> 
+            <p><input type="text" id="trashTextInput" value=""></p>
+          </div> 
+          <p><button type="button" id="addRuleButton" class="button">ルールを追加する</button></p>
         </div>
 
         <div class="section">
@@ -108,11 +113,10 @@
     <!-- /help view -->
 
     <!-- template -->
-
     <div id="scheduleItemTemplate" class="template">
       <div class="deleteButton"><a href="javascript:void(null);"><img src="images/cross.png"></a></div>
-      <div class="day">毎週水曜日</div>
-      <div class="trash">燃やせるごみ</div>
+      <div class="day">###DAY###</div>
+      <div class="trash">###TRASH###</div>
     </div>
 
     <div id="ruleTemplate" class="rule template"> 

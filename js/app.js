@@ -10,6 +10,26 @@ var Application = (function() {
   app.VIEWS = ["main", "setting", "help"];
   app.STORAGE_KEY = "scheduleConfig";
 
+  //TODO refactoring me
+  //default schedule
+  //condition digits rules are
+  //left digit
+  //0   : evenryweek
+  //1..6: day
+  //right digit
+  //0..6: day
+  app.PRESET_SCHEDULE = [
+    {condition: "03", trash: "燃やせるごみ"},
+    {condition: "06", trash: "燃やせるごみ"},
+    {condition: "25", trash: "燃やせないごみ"},
+    {condition: "45", trash: "燃やせないごみ"},
+    {condition: "14", trash: "新聞・雑誌・ダンボール・布類"},
+    {condition: "34", trash: "新聞・雑誌・ダンボール・布類"},
+    {condition: "24", trash: "カン・ビン・ペットボトル"},
+    {condition: "44", trash: "カン・ビン・ペットボトル"},
+    {condition: "02", trash: "プラスチック"}
+  ];
+
   /**
    *  initialize
    */
@@ -18,7 +38,7 @@ var Application = (function() {
 
     this.restoreSchedule();
 
-    this.changeView("main");
+    this.changeView("setting");
 
     //initialize input view
     this.initMainView();
@@ -53,6 +73,81 @@ var Application = (function() {
     var self = this;
 
     //create list
+    this.initScheduleList();
+
+    //add reset button event handler
+    $("#resetButton").click(function() {
+      if (confirm("スケジュールを初期化しますか？")) {
+        self.resetSchedule();
+        self.initScheduleList();
+      }
+    });
+  };
+
+  /**
+   *  init schedule list in setting view
+   */
+  app.initScheduleList = function() {
+    var self = this;
+    if (this.config.length === 0) {
+      $("#scheduleAlert").show();
+    } else {
+      $("#scheduleAlert").hide();
+    }
+
+    //clear list
+    $("ul#schedule").html("");
+    //create list
+    for (var i = 0; i < this.config.length; i++) {
+      var id = i;
+      var rule = this.config[i];
+      var condition = rule.condition;
+      var trash = rule.trash;
+      var html = this.createListItemHTML(id, condition, trash);
+      $("ul#schedule").append(html);
+    }
+
+    //add delete button event handler
+    $("ul#schedule li div.deleteButton a").each(function(index, element) {
+      $(element).click(function() {
+        //get parent li id
+        var id = $(this).closest("li").attr("id").match(/^item(\d+)$/)[1];
+        self.removeScheduleItem(id);
+      });
+    });
+  }
+
+  /**
+   *  create list item html
+   *  @param condition day rule
+   *  @param trash trash text
+   *  @return list item html
+   */
+  app.createListItemHTML = function(id, condition, trash) {
+    //left digit
+    var term = condition.charAt(0);
+    //right digit
+    var day = condition.charAt(1);
+
+    var conditionText;
+    //every week
+    if (term === "0") {
+      conditionText = "毎週" + this.dayNumberToString(Number(day)) + "曜日";
+    } else {
+      conditionText = "第" + term + this.dayNumberToString(Number(day)) + "曜日";
+    }
+
+    var escapedTrash = this.escapeHTML(trash);
+
+    var templateHTML = $("#scheduleItemTemplate").clone().attr("id", "").removeClass("template").html();
+    templateHTML = templateHTML.replace(/###DAY###/g, conditionText);
+    templateHTML = templateHTML.replace(/###TRASH###/g, escapedTrash);
+    var listItemHTML = $("<li>" + templateHTML + "</li>");
+    listItemHTML.attr("id", "item" + id);
+    if (id % 2 === 1) {
+      listItemHTML.addClass("odd");
+    }
+    return listItemHTML;
   };
 
   /**
@@ -82,13 +177,13 @@ var Application = (function() {
     var rightDigit = date.getDay() + "";
     for (var i = 0; i < this.config.length; i++) {
       var rule = this.config[i];
-      var day = rule.day;
+      var condition = rule.condition;
       var trash = rule.trash;
       //specific pattern
-      if (rule.day === leftDigit + rightDigit) {
+      if (rule.condition === leftDigit + rightDigit) {
         return trash;
       //every week pattern
-      } else if (rule.day === "0" + rightDigit) {
+      } else if (rule.condition === "0" + rightDigit) {
         return trash;
       }
     }
@@ -97,32 +192,36 @@ var Application = (function() {
   };
 
   /**
+   *  save current schedule
+   */
+  app.saveSchedule = function() {
+    localStorage[this.STORAGE_KEY] = JSON.stringify(this.config);
+  };
+
+  /**
    *  restore schedule
    */
   app.restoreSchedule = function() {
+    //exist config in localStorage
     if (localStorage && localStorage[this.STORAGE_KEY]) {
       this.config = JSON.parse(localStorage[this.STORAGE_KEY]);
+    //not exist then use preset
     } else {
-      //TODO refactoring me
-      //default schedule
-      //day digits rules are
-      //left digit
-      //0   : evenryweek
-      //1..6: day
-      //right digit
-      //0..6: day
-      this.config = [
-        {day: "03", trash: "燃やせるごみ"},
-        {day: "06", trash: "燃やせるごみ"},
-        {day: "25", trash: "燃やせないごみ"},
-        {day: "45", trash: "燃やせないごみ"},
-        {day: "14", trash: "新聞・雑誌・ダンボール・布類"},
-        {day: "34", trash: "新聞・雑誌・ダンボール・布類"},
-        {day: "24", trash: "カン・ビン・ペットボトル"},
-        {day: "44", trash: "カン・ビン・ペットボトル"},
-        {day: "02", trash: "プラスチック"}
-      ];
+      this.config = this.PRESET_SCHEDULE.concat();
     }
+  };
+
+  /**
+   *  remove schedule rule
+   *  @param id config rules index
+   */
+  app.removeScheduleItem = function(id) {
+    this.config.splice(id, 1);
+    //update view
+    this.initScheduleList();
+
+    //save config
+    this.saveSchedule();
   };
 
   /**
@@ -130,6 +229,8 @@ var Application = (function() {
    */
   app.resetSchedule = function() {
     localStorage.removeItem(this.STORAGE_KEY);
+    this.config = this.PRESET_SCHEDULE.concat();
+    this.saveSchedule();
   };
 
   /**
@@ -155,12 +256,30 @@ var Application = (function() {
   };
 
   /**
+   *  escape HTML [util function]
+   *  @param html the html
+   *  @return escaped html
+   */
+  app.escapeHTML = function(html) {
+    return $("<div/>").text(html).html();
+  };
+
+  /**
    *  get week of day [util function]
    *  @param date target date
    *  @return week of day
    */
   app.getWeekOfDay = function(date) {
-    return ["日", "月", "火", "水", "木", "金", "土"][date.getDay()];
+    return this.dayNumberToString(date.getDay());
+  };
+
+  /**
+   *  day number to human readable string
+   *  @param day day number 0..1
+   *  @return day string
+   */
+  app.dayNumberToString = function(day) {
+    return ["日", "月", "火", "水", "木", "金", "土"][day];
   };
 
   /**
